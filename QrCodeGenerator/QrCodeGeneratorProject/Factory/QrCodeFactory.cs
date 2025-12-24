@@ -20,11 +20,9 @@ public class QrCodeFactory : IQrCodeFactory
                 return new QrCodeResult(qrCodeImage, metadata.Format);
             
             default:
-                throw new NotImplementedException(ExceptionMessages.QrCodeFormatNotSupported);
+                throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
             
         }
-        
-        return null;
     }
     
     public QRCodeData GenerateUrlQrCode(QrCodeMetadata metadata)
