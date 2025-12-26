@@ -1,5 +1,6 @@
 using QrCodeGeneratorProject.DTO;
 using QrCodeGeneratorProject.Factory.Interfaces;
+using QrCodeGeneratorProject.Renderers.Interfaces;
 using QrCodeGeneratorProject.Renderers.Models;
 using QrCodeGeneratorProject.Utilites;
 using QRCoder;
@@ -14,14 +15,22 @@ public class QrCodeFactory : IQrCodeFactory
         {
             case FormatTypes.Png:
                 
-                QRCodeData qrCodeData = GenerateUrlQrCode(metadata);
-                byte[] qrCodeImage = new PngRenderer().Render(qrCodeData);
+                IRenderer pngRenderer = new PngRenderer();
+                QRCodeData urlQrCodeData = GenerateUrlQrCode(metadata);
+                byte[] qrCodeImage = pngRenderer.Render(urlQrCodeData);
                 
                 return new QrCodeResult(qrCodeImage, metadata.Format);
             
+            case FormatTypes.Pdf:
+                
+                IRenderer pdfRenderer = new SvgRenderer();
+                PayloadGenerator.Url urlPayload = new(metadata.Text);
+                QRCodeData pdfQrCodeData = QRCodeGenerator.GenerateQrCode(urlPayload);
+                byte[] pdfQrCodeImage = pdfRenderer.Render(pdfQrCodeData);
+                
+                return new QrCodeResult(pdfQrCodeImage, metadata.Format);
             default:
                 throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
-            
         }
     }
     

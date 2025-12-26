@@ -36,7 +36,7 @@ public class Engine : IEngine
         //
         // QrCodeResult q = new(new byte[] {1,2,3}, FormatTypes.Pdf);
         
-        var bookmarkPayload = new PayloadGenerator.Url("https://github.com/Shane32/QRCoder");
+        //var bookmarkPayload = new PayloadGenerator.Url("https://github.com/Shane32/QRCoder");
 
         // // Generate the QR code data from the payload
         // using QRCodeData qrCodeData = QRCodeGenerator.GenerateQrCode(bookmarkPayload);
@@ -49,12 +49,21 @@ public class Engine : IEngine
         // byte[] qrCodeImage = pngRenderer.GetGraphic(20);
         //
         // File.WriteAllBytes("../../../Image.png", qrCodeImage);
+        //
+        // QrCodeMetadata metadata = 
+        //     new("https://ontheline.trincoll.edu/images/bookdown/sample-local-pdf.pdf", QrCodeTypes.Url, FormatTypes.Pdf, QRCodeGenerator.ECCLevel.H);
+        //
+        // QrCodeResult result = this._factory.GenerateQrCode(metadata);
+        //
+        // this._writer.Write(result.Data, "../../../Image.pdf");
+        
+        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
+        SvgQRCode qrCode = new SvgQRCode(qrCodeData);
+        string qrCodeAsSvg = qrCode.GetGraphic(20);
+        
+        File.WriteAllText("../../../Test.svg",qrCodeAsSvg);
+        
 
-        QrCodeMetadata metadata = 
-            new("https://github.com/Shane32/QRCoder", QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.H);
-        
-        QrCodeResult result = this._factory.GenerateQrCode(metadata);
-        
-        this._writer.Write(result.Data, "../../../Image.png");
     }
 }
