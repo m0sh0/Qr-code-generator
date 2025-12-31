@@ -37,8 +37,7 @@ public class QrCodeResult
     {
         this.SuggestedFileName = suggestedFileName;  
     }
-
-
+    
     public byte[] ByteData
     {
         get => this._byteData;
