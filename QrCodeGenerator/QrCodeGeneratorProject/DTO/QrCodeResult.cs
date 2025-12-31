@@ -25,7 +25,7 @@ public class QrCodeResult
     
     
     public byte[] Data { get; private set; }
-    public FormatTypes Format { get; private set; }
+    public FormatTypes Format { get; }
 
     public string? SuggestedFileName
     {
