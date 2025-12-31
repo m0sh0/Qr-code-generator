@@ -3,13 +3,12 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.Renderers.Models;
 
-public class SvgRenderer : IRenderer
+public class SvgRenderer : IRenderer<string>
 {
-    public byte[] Render(QRCodeData qrCodeData)
+    public string Render(QRCodeData qrCodeData)
     {
-        // using SvgQRCode svgRenderer = new(qrCodeData);
-        // string[] qrCodeImage = svgRenderer.GetGraphic(20);
-        // return qrCodeImage;
-        throw new NotImplementedException();
+        SvgQRCode qrCode = new(qrCodeData);
+        string qrCodeImage = qrCode.GetGraphic(20);
+        return qrCodeImage;
     }
 }

@@ -9,22 +9,62 @@ public class QrCodeResult
 {
     private const string DefaultFileName = "QrCode";
     private string? _suggestedFileName;
-    
-    public QrCodeResult(byte[] data, FormatTypes format)
+    private byte[] _byteData;
+    private string _stringData;
+
+    public QrCodeResult(byte[] byteData, FormatTypes format)
     {
-        this.Data = data;
+        this.ByteData = byteData;
         this.Format = format;
-        this._suggestedFileName = $"{DefaultFileName}.{format.ToString().ToLower()}";
+        this.SuggestedFileName = $"{DefaultFileName}.{format.ToString().ToLower()}";
     }
 
-    public QrCodeResult(byte[] data, FormatTypes format, string suggestedFileName)
-        : this(data, format)
+    public QrCodeResult(byte[] byteData, FormatTypes format, string suggestedFileName)
+        : this(byteData, format)
     {
         this.SuggestedFileName = suggestedFileName;  
     }
-    
-    
-    public byte[] Data { get; private set; }
+
+    public QrCodeResult(string stringData, FormatTypes format)
+    {
+        this.StringData = stringData;
+        this.Format = format;
+        this.SuggestedFileName = $"{DefaultFileName}.{format.ToString().ToLower()}";
+    }
+
+    public QrCodeResult(string stringData, FormatTypes format, string suggestedFileName)
+        : this(stringData, format)
+    {
+        this.SuggestedFileName = suggestedFileName;  
+    }
+
+
+    public byte[] ByteData
+    {
+        get => this._byteData;
+        private set
+        {
+            if (value.Length == 0)
+            {
+                throw new ArgumentException(ExceptionMessages.DataNullOrEmpty);
+            }
+            this._byteData = value;
+        }
+    }
+
+    public string StringData
+    {
+        get => this._stringData;
+        private set
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new ArgumentException(ExceptionMessages.DataNullOrEmpty);
+            }
+            this._stringData = value;
+        }
+    }
+
     public FormatTypes Format { get; }
 
     public string? SuggestedFileName
@@ -62,7 +102,6 @@ public class QrCodeResult
         {
             return false;
         }
-        
         return true;
     }
 }

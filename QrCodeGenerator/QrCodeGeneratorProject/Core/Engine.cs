@@ -13,7 +13,8 @@ public class Engine : IEngine
 {
     private readonly IWriter _writer;
     private readonly IQrCodeFactory _factory;
-    private readonly IRenderer _renderer;
+    private readonly IRenderer<byte[]> _byteRenderer;
+    private readonly IRenderer<string> _svgRenderer;
     
     public Engine(IWriter writer, IQrCodeFactory factory)
     {
@@ -57,13 +58,20 @@ public class Engine : IEngine
         //
         // this._writer.Write(result.Data, "../../../Image.pdf");
         
-        QRCodeGenerator qrGenerator = new QRCodeGenerator();
-        QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
-        SvgQRCode qrCode = new SvgQRCode(qrCodeData);
-        string qrCodeAsSvg = qrCode.GetGraphic(20);
+        // QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        // QRCodeData qrCodeData = qrGenerator.CreateQrCode("The text which should be encoded.", QRCodeGenerator.ECCLevel.Q);
+        // SvgQRCode qrCode = new SvgQRCode(qrCodeData);
+        // string qrCodeAsSvg = qrCode.GetGraphic(20);
+        //
+        // File.WriteAllText("../../../Test.svg",qrCodeAsSvg);
         
-        File.WriteAllText("../../../Test.svg",qrCodeAsSvg);
+        QrCodeMetadata data =
+            new("this text should be encrypted",QrCodeTypes.Url, FormatTypes.Svg, QRCodeGenerator.ECCLevel.Q);
+
+        QrCodeResult result = this._factory.GenerateQrCode(data);
         
+        File.WriteAllText("../../../Test.svg",result.StringData);
+
 
     }
 }

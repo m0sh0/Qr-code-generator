@@ -15,20 +15,19 @@ public class QrCodeFactory : IQrCodeFactory
         {
             case FormatTypes.Png:
                 
-                IRenderer pngRenderer = new PngRenderer();
-                QRCodeData urlQrCodeData = GenerateUrlQrCode(metadata);
-                byte[] qrCodeImage = pngRenderer.Render(urlQrCodeData);
+                IRenderer<byte[]> pngRenderer = new PngRenderer();
+                QRCodeData pngQrCodeData = GenerateUrlQrCode(metadata);
+                byte[] qrCodeImage = pngRenderer.Render(pngQrCodeData);
                 
                 return new QrCodeResult(qrCodeImage, metadata.Format);
             
-            case FormatTypes.Pdf:
+            case FormatTypes.Svg:
                 
-                IRenderer pdfRenderer = new SvgRenderer();
-                PayloadGenerator.Url urlPayload = new(metadata.Text);
-                QRCodeData pdfQrCodeData = QRCodeGenerator.GenerateQrCode(urlPayload);
-                byte[] pdfQrCodeImage = pdfRenderer.Render(pdfQrCodeData);
+                IRenderer<string> svgRenderer = new SvgRenderer();
+                QRCodeData svgQrCodeData = GenerateUrlQrCode(metadata);
+                string svgCodeImage = svgRenderer.Render(svgQrCodeData);
                 
-                return new QrCodeResult(pdfQrCodeImage, metadata.Format);
+                return new QrCodeResult(svgCodeImage, metadata.Format);
             default:
                 throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
         }

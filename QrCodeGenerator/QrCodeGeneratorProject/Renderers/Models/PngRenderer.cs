@@ -3,7 +3,7 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.Renderers.Models;
 
-public class PngRenderer : IRenderer
+public class PngRenderer : IRenderer<byte[]>
 {
     public byte[] Render(QRCodeData qrCodeData)
     {
