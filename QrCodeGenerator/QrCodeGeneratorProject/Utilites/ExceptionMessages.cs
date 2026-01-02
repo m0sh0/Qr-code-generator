@@ -7,4 +7,7 @@ public class ExceptionMessages
     public const string InvalidCharacterInFilename = "Invalid character in filename.";
     public const string QrCodeFormatNotSupported = "QrCode format is not supported.";
     public const string DataNullOrEmpty = "Data is empty.";
+    public const string InvalidQrCodeType = "Invalid QRCode type.";
+    public const string InvalidEccLevel = "Invalid ECC level.";
+    public const string InvalidFormat = "Invalid format.";
 }

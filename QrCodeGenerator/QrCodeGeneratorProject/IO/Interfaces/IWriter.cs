@@ -2,5 +2,6 @@ namespace QrCodeGeneratorProject.IO.Interfaces;
 
 public interface IWriter
 {
-    public void Write(byte[] data, string fileName);
+    public void WriteBytes(byte[] data, string fileName);
+    public void WriteString(string data, string fileName);
 }

@@ -1,4 +1,5 @@
-﻿using QRCoder;
+﻿using QrCodeGeneratorProject.QrCodeGeneration;
+using QRCoder;
 
 namespace QrCodeGeneratorProject.DTO.Interfaces;
 

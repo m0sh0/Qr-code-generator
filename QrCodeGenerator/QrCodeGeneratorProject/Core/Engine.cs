@@ -4,6 +4,7 @@ using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.IO;
 using QrCodeGeneratorProject.IO.Interfaces;
+using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.Renderers.Interfaces;
 using QRCoder;
 
@@ -13,8 +14,6 @@ public class Engine : IEngine
 {
     private readonly IWriter _writer;
     private readonly IQrCodeFactory _factory;
-    private readonly IRenderer<byte[]> _byteRenderer;
-    private readonly IRenderer<string> _svgRenderer;
     
     public Engine(IWriter writer, IQrCodeFactory factory)
     {
@@ -70,7 +69,7 @@ public class Engine : IEngine
 
         QrCodeResult result = this._factory.GenerateQrCode(data);
         
-        File.WriteAllText("../../../Test.svg",result.StringData);
+        this._writer.WriteString(data.Text, "../../../Test.svg");
 
 
     }
