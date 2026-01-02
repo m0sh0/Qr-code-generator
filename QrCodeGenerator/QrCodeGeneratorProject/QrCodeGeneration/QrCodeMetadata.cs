@@ -34,16 +34,6 @@ public class QrCodeMetadata
     public QRCodeGenerator.ECCLevel EccLevel { get; private set; }
 }
 
-public enum FormatTypes
-{
-    Png,
-    Jpeg,
-    Svg,
-    Pdf
-}
 
-public enum QrCodeTypes
-{
-    Wifi,
-    Url
-}
+
+
