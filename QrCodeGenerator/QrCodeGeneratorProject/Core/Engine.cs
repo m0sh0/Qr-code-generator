@@ -65,11 +65,11 @@ public class Engine : IEngine
         // File.WriteAllText("../../../Test.svg",qrCodeAsSvg);
         
         QrCodeMetadata data =
-            new("this text should be encrypted",QrCodeTypes.Url, FormatTypes.Svg, QRCodeGenerator.ECCLevel.Q);
+            new("this text should be encrypted",QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.Q);
 
         QrCodeResult result = this._factory.GenerateQrCode(data);
         
-        this._writer.WriteString(data.Text, "../../../Test.svg");
+        File.WriteAllBytes("../../..",result.ByteData);
 
 
     }

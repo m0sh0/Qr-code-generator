@@ -1,4 +1,5 @@
 ﻿using QRCoder;
+using Aspose.Words;
 
 namespace QrCodeGeneratorProject;
 
@@ -13,18 +14,10 @@ class Program
         // IEngine engine = new Engine(writer,factory);
         // engine.Run();
         
+        Document doc =  new Document();
+        DocumentBuilder builder = new DocumentBuilder(doc);
         
-        var wifiPayload =  new PayloadGenerator.WiFi
-            (
-                ssid: "MyWifiNetwork",
-                password: "MyWifiPassword", 
-                PayloadGenerator.WiFi.Authentication.nopass, 
-                isHiddenSSID: false,
-                escapeHexStrings: true
-            );
-        
-        QRCodeData qrCodeData = QRCodeGenerator.GenerateQrCode(wifiPayload, QRCodeGenerator.ECCLevel.Q);
-        string qrCodeAsSvg = new SvgQRCode(qrCodeData).GetGraphic(20);
-        File.WriteAllText("../../../Wifi.svg",qrCodeAsSvg);
+        builder.InsertImage("../../../../Test.png");
+
     }
 }
