@@ -30,6 +30,6 @@ public class Engine : IEngine
         
         QrCodeResult result = this._factory.GenerateQrCode(metadata);
         
-        this._writer.WriteBytes(result.ByteData, $"../../../output.pdf");
+        this._writer.WriteBytes(result.ByteData, "../../../output.pdf");
     }
 }
