@@ -5,5 +5,5 @@ namespace QrCodeGeneratorProject.DTO.Interfaces;
 
 public interface IQrCodeGenerator
 {
-    public QRCodeData GenerateQrCode(QrCodeMetadata qrCodeMetadata);
+    public QRCodeData GenerateQrCode(UrlQrCodeMetadata urlQrCodeMetadata);
 }

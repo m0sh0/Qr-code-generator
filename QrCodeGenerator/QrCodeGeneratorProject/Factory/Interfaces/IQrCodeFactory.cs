@@ -5,5 +5,5 @@ namespace QrCodeGeneratorProject.Factory.Interfaces;
 
 public interface IQrCodeFactory
 {
-    public QrCodeResult GenerateQrCode(QrCodeMetadata metadata);
+    public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata);
 }

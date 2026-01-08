@@ -20,7 +20,7 @@ public class Engine : IEngine
     public void Run()
     {
         
-        QrCodeMetadata metadata = new QrCodeMetadata
+        UrlQrCodeMetadata metadata = new
         (
             text: "123",
             type: QrCodeTypes.Url,
@@ -28,7 +28,7 @@ public class Engine : IEngine
             QRCodeGenerator.ECCLevel.Q
         );
         
-        QrCodeResult result = this._factory.GenerateQrCode(metadata);
+        UrlQrCodeResult result = this._factory.GenerateQrCode(metadata);
         
         this._writer.WriteBytes(result.ByteData, "../../../output.pdf");
     }

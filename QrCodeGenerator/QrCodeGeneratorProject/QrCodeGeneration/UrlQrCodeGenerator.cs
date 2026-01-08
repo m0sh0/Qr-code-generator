@@ -8,12 +8,12 @@ namespace QrCodeGeneratorProject.QrCodeGeneration;
 //</summary>
 public class UrlQrCodeGenerator : IQrCodeGenerator
 {
-    public QRCodeData GenerateQrCode(QrCodeMetadata qrCodeMetadata)
+    public QRCodeData GenerateQrCode(UrlQrCodeMetadata urlQrCodeMetadata)
     {
-        PayloadGenerator.Url urlPayload = new(qrCodeMetadata.Text);
+        PayloadGenerator.Url urlPayload = new(urlQrCodeMetadata.Text);
                 
         QRCodeData urlQrCodeData = QRCodeGenerator
-            .GenerateQrCode(urlPayload, qrCodeMetadata.EccLevel);
+            .GenerateQrCode(urlPayload, urlQrCodeMetadata.EccLevel);
         
         return urlQrCodeData;
     }

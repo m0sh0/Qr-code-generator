@@ -5,34 +5,34 @@ namespace QrCodeGeneratorProject.QrCodeGeneration;
 //<summary>
 // A class that holds the result of a QR code generation operation.
 //</summary>
-public class QrCodeResult
+public class UrlQrCodeResult
 {
     private const string DefaultFileName = "QrCode";
     private string? _suggestedFileName;
     private byte[] _byteData;
     private string _stringData;
 
-    public QrCodeResult(byte[] byteData, FormatTypes format)
+    public UrlQrCodeResult(byte[] byteData, FormatTypes format)
     {
         this.ByteData = byteData;
         this.Format = format;
         this.SuggestedFileName = $"{DefaultFileName}.{format.ToString().ToLower()}";
     }
 
-    public QrCodeResult(byte[] byteData, FormatTypes format, string suggestedFileName)
+    public UrlQrCodeResult(byte[] byteData, FormatTypes format, string suggestedFileName)
         : this(byteData, format)
     {
         this.SuggestedFileName = suggestedFileName;  
     }
 
-    public QrCodeResult(string stringData, FormatTypes format)
+    public UrlQrCodeResult(string stringData, FormatTypes format)
     {
         this.StringData = stringData;
         this.Format = format;
         this.SuggestedFileName = $"{DefaultFileName}.{format.ToString().ToLower()}";
     }
 
-    public QrCodeResult(string stringData, FormatTypes format, string suggestedFileName)
+    public UrlQrCodeResult(string stringData, FormatTypes format, string suggestedFileName)
         : this(stringData, format)
     {
         this.SuggestedFileName = suggestedFileName;  

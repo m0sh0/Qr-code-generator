@@ -19,7 +19,7 @@ public class QrCodeFactory : IQrCodeFactory
     //<summary>
     //Generates QR code based on the provided metadata.
     //</summary>
-    public QrCodeResult GenerateQrCode(QrCodeMetadata metadata)
+    public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata)
     {
         switch (metadata.Format)
         {
@@ -29,7 +29,7 @@ public class QrCodeFactory : IQrCodeFactory
                 QRCodeData pngQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
                 byte[] qrCodeImage = pngRenderer.Render(pngQrCodeData);
                 
-                return new QrCodeResult(qrCodeImage, metadata.Format);
+                return new UrlQrCodeResult(qrCodeImage, metadata.Format);
             
             case FormatTypes.Svg:
                 
@@ -37,7 +37,7 @@ public class QrCodeFactory : IQrCodeFactory
                 QRCodeData svgQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
                 string svgCodeImage = svgRenderer.Render(svgQrCodeData);
                 
-                return new QrCodeResult(svgCodeImage, metadata.Format);
+                return new UrlQrCodeResult(svgCodeImage, metadata.Format);
             
             case FormatTypes.Pdf:
                 
@@ -45,7 +45,7 @@ public class QrCodeFactory : IQrCodeFactory
                 QRCodeData pdfQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
                 byte[] pdfCodeImage = pdfRenderer.Render(pdfQrCodeData);
                 
-                return new QrCodeResult(pdfCodeImage, metadata.Format);
+                return new UrlQrCodeResult(pdfCodeImage, metadata.Format);
             
             default:
                 throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);

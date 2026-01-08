@@ -8,7 +8,7 @@ namespace QrCodeGeneratorProject.QrCodeGeneration;
 // A class that holds metadata for QR codes.
 //</summary>
 
-public class QrCodeMetadata
+public class UrlQrCodeMetadata
 {
     
     private string _text;
@@ -16,7 +16,7 @@ public class QrCodeMetadata
     private FormatTypes _format;
     private QRCodeGenerator.ECCLevel _eccLevel;
 
-    public QrCodeMetadata(string text, QrCodeTypes type, FormatTypes format, QRCodeGenerator.ECCLevel eccLevel)
+    public UrlQrCodeMetadata(string text, QrCodeTypes type, FormatTypes format, QRCodeGenerator.ECCLevel eccLevel)
     {
         this.Text = text;
         this.Type = type;
