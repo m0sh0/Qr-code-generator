@@ -32,6 +32,14 @@ public class QrCodeFactory : IQrCodeFactory
                 
                 return new QrCodeResult(svgCodeImage, metadata.Format);
             
+            case FormatTypes.Pdf:
+                
+                IRenderer<byte[]> pdfRenderer = new PdfRenderer();
+                QRCodeData pdfQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
+                byte[] pdfCodeImage = pdfRenderer.Render(pdfQrCodeData);
+                
+                return new QrCodeResult(pdfCodeImage, metadata.Format);
+            
             default:
                 throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
         }
