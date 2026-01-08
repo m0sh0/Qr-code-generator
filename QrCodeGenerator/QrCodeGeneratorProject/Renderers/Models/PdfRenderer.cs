@@ -5,6 +5,9 @@ using Aspose.Words.Drawing;
 
 namespace QrCodeGeneratorProject.Renderers.Models;
 
+//<summary>
+// A class that renders QR codes as PDF documents.
+//</summary>
 public class PdfRenderer : IRenderer<byte[]>
 {
     private readonly IRenderer<byte[]> _pngRenderer = new PngRenderer();

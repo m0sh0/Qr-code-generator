@@ -3,7 +3,9 @@ using QrCodeGeneratorProject.DTO.Interfaces;
 using QRCoder;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration;
-
+//<summary>
+// A class that generates QR codes for URLs.
+//</summary>
 public class UrlQrCodeGenerator : IQrCodeGenerator
 {
     public QRCodeData GenerateQrCode(QrCodeMetadata qrCodeMetadata)

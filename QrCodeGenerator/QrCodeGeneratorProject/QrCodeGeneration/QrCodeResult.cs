@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using QrCodeGeneratorProject.Utilites;
+﻿using QrCodeGeneratorProject.Utilites;
 
-namespace QrCodeGeneratorProject.DTO;
+namespace QrCodeGeneratorProject.QrCodeGeneration;
 
+//<summary>
+// A class that holds the result of a QR code generation operation.
+//</summary>
 public class QrCodeResult
 {
     private const string DefaultFileName = "QrCode";

@@ -4,6 +4,10 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration;
 
+//<summary>
+// A class that holds metadata for QR codes.
+//</summary>
+
 public class QrCodeMetadata
 {
     

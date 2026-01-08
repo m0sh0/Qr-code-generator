@@ -1,10 +1,8 @@
 using QrCodeGeneratorProject.Core.Interfaces;
-using QrCodeGeneratorProject.DTO;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.IO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QRCoder;
-using Aspose.Words;
 
 namespace QrCodeGeneratorProject.Core;
 
@@ -32,6 +30,6 @@ public class Engine : IEngine
         
         QrCodeResult result = this._factory.GenerateQrCode(metadata);
         
-        this._writer.WriteBytes(result.ByteData, $"../../../{metadata}");
+        this._writer.WriteBytes(result.ByteData, $"../../../output.pdf");
     }
 }

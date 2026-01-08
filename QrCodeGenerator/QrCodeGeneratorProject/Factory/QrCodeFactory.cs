@@ -9,9 +9,16 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.Factory;
 
+//<summary>
+// A class that generates QR codes based on the provided metadata.
+//</summary>
 public class QrCodeFactory : IQrCodeFactory
 {
     private readonly IQrCodeGenerator _urlQrCodeGenerator = new UrlQrCodeGenerator();
+    
+    //<summary>
+    //Generates QR code based on the provided metadata.
+    //</summary>
     public QrCodeResult GenerateQrCode(QrCodeMetadata metadata)
     {
         switch (metadata.Format)
