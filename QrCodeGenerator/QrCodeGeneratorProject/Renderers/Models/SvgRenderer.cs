@@ -5,12 +5,12 @@ namespace QrCodeGeneratorProject.Renderers.Models;
 //<summary>
 // A class that renders QR codes as SVG images.
 //</summary>
-public class SvgRenderer : IRenderer<string>
+public class SvgRenderer : ITextRenderer
 {
     //<summary>
     //Renders QR code as an SVG image.
     //</summary>
-    public string Render(QRCodeData qrCodeData)
+    public object Render(QRCodeData qrCodeData)
     {
         SvgQRCode qrCode = new(qrCodeData);
         string qrCodeImage = qrCode.GetGraphic(20);

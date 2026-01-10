@@ -8,14 +8,14 @@ namespace QrCodeGeneratorProject.Renderers.Models;
 //<summary>
 // A class that renders QR codes as PDF documents.
 //</summary>
-public class PdfRenderer : IRenderer<byte[]>
+public class PdfRenderer : IBinaryRenderer
 {
-    private readonly IRenderer<byte[]> _pngRenderer = new PngRenderer();
+    private readonly IRenderer _pngRenderer = new PngRenderer();
     
-    public byte[] Render(QRCodeData qrCodeData)
+    public object Render(QRCodeData qrCodeData)
     {
         // Generating png image bytes
-        byte[] data = this._pngRenderer.Render(qrCodeData);
+        byte[] data = this._pngRenderer.Render(qrCodeData) as byte[];
 
         // Create blank Aspose.Words Document
         Document doc = new();

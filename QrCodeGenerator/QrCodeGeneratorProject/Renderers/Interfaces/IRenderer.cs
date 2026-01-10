@@ -2,7 +2,7 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.Renderers.Interfaces;
 
-public interface IRenderer<TOutput>
+public interface IRenderer
 {
-    public TOutput Render(QRCodeData qrCodeData);
+    public object Render(QRCodeData qrCodeData);
 }
