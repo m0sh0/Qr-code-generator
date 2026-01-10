@@ -29,7 +29,7 @@ public class Engine : IEngine
         
         UrlQrCodeResult result = this._factory.GenerateQrCode(metadata);
         
-        this._writer.WriteBytes(result.ByteData, "../../../youtube.pdf");
+        this._writer.WriteBytes(result.ByteData, $"../../../youtube.{metadata.Format.ToString().ToLower()}");
         
     }
 }

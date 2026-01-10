@@ -17,7 +17,7 @@ public class QrCodeFactory : IQrCodeFactory
 
     private readonly Dictionary<FormatTypes, IBinaryRenderer> _byteRenderers = new()
     {
-        { FormatTypes.Jpeg, new PngRenderer() },
+        { FormatTypes.Jpeg, new JpegRenderer() },
         { FormatTypes.Png, new PngRenderer() },
         { FormatTypes.Pdf, new PdfRenderer() }
     };
