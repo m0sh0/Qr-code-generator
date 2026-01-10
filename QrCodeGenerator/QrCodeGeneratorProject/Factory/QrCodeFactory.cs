@@ -14,7 +14,18 @@ namespace QrCodeGeneratorProject.Factory;
 public class QrCodeFactory : IQrCodeFactory
 {
     private readonly IQrCodeGenerator _urlQrCodeGenerator = new UrlQrCodeGenerator();
-    //private readonly Dictionary<FormatTypes, IRenderer<>> _renderers = new()
+
+    private readonly Dictionary<FormatTypes, IBinaryRenderer> _byteRenderers = new()
+    {
+        { FormatTypes.Jpeg, new PngRenderer() },
+        { FormatTypes.Png, new PngRenderer() },
+        { FormatTypes.Pdf, new PdfRenderer() }
+    };
+    private readonly Dictionary<FormatTypes, ITextRenderer> _textRenderers = new()
+    {
+        { FormatTypes.Svg, new SvgRenderer() }
+    };
+    
     //<summary>
     //Generates QR code based on the provided metadata.
     //</summary>
@@ -23,29 +34,22 @@ public class QrCodeFactory : IQrCodeFactory
         switch (metadata.Format)
         {
             case FormatTypes.Png:
-            case FormatTypes.Jpeg:    
-                
-                IBinaryRenderer pngRenderer = new PngRenderer();
+            case FormatTypes.Jpeg:
+            case FormatTypes.Pdf:    
+
+                IBinaryRenderer pngRenderer = this._byteRenderers[metadata.Format];
                 QRCodeData qrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-                byte[] pngCodeImage = pngRenderer.Render(qrCodeData) as byte[];
+                byte[] pngCodeImage = pngRenderer.Render(qrCodeData);
                 
                 return new UrlQrCodeResult(pngCodeImage, metadata.Format);
             
             case FormatTypes.Svg:
                 
-                ITextRenderer svgRenderer = new SvgRenderer();
+                ITextRenderer svgRenderer = this._textRenderers[metadata.Format];
                 QRCodeData svgQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-                string svgCodeImage = svgRenderer.Render(svgQrCodeData) as string;
+                string svgCodeImage = svgRenderer.Render(svgQrCodeData);
                 
                 return new UrlQrCodeResult(svgCodeImage, metadata.Format);
-            
-            case FormatTypes.Pdf:
-                
-                IBinaryRenderer pdfRenderer = new PdfRenderer();
-                QRCodeData pdfQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-                byte[] pdfCodeImage = pdfRenderer.Render(pdfQrCodeData) as byte[];
-                
-                return new UrlQrCodeResult(pdfCodeImage, metadata.Format);
             
             default:
                 throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);

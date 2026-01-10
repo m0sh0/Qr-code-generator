@@ -10,7 +10,7 @@ public class SvgRenderer : ITextRenderer
     //<summary>
     //Renders QR code as an SVG image.
     //</summary>
-    public object Render(QRCodeData qrCodeData)
+    public string Render(QRCodeData qrCodeData)
     {
         SvgQRCode qrCode = new(qrCodeData);
         string qrCodeImage = qrCode.GetGraphic(20);

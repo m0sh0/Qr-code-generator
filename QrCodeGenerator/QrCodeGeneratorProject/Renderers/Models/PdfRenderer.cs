@@ -10,12 +10,12 @@ namespace QrCodeGeneratorProject.Renderers.Models;
 //</summary>
 public class PdfRenderer : IBinaryRenderer
 {
-    private readonly IRenderer _pngRenderer = new PngRenderer();
+    private readonly IRenderer<byte[]> _pngRenderer = new PngRenderer();
     
-    public object Render(QRCodeData qrCodeData)
+    public byte[] Render(QRCodeData qrCodeData)
     {
         // Generating png image bytes
-        byte[] data = this._pngRenderer.Render(qrCodeData) as byte[];
+        byte[] data = this._pngRenderer.Render(qrCodeData);
 
         // Create blank Aspose.Words Document
         Document doc = new();

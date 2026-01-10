@@ -23,13 +23,13 @@ public class Engine : IEngine
         (
             text: "https://www.youtube.com/watch?v=soDuIX_jBWw",
             type: QrCodeTypes.Url,
-            FormatTypes.Png,
+            FormatTypes.Pdf,
             QRCodeGenerator.ECCLevel.Q
         );
         
         UrlQrCodeResult result = this._factory.GenerateQrCode(metadata);
         
-        this._writer.WriteBytes(result.ByteData, "../../../youtube.png");
+        this._writer.WriteBytes(result.ByteData, "../../../youtube.pdf");
         
     }
 }
