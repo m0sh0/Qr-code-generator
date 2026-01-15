@@ -17,12 +17,8 @@ public class QrCodeFactory : IQrCodeFactory
 {
     private readonly IQrCodeGenerator<UrlQrCodeMetadata> _urlQrCodeGenerator = new UrlQrCodeGenerator();
     private readonly IQrCodeGenerator<WiFiQrCodeMetadata> _wiFiQrCodeGenerator = new WiFiQrCodeGenerator();
-
-    private readonly Dictionary<QrCodeTypes, object> _generators = new()
-    {
-        { QrCodeTypes.Url, new UrlQrCodeGenerator() },
-        { QrCodeTypes.Wifi, new WiFiQrCodeGenerator() }
-    };
+    private readonly IGeneratorFactory _generatorFactory = new GeneratorFactory();
+    
     private readonly Dictionary<FormatTypes, IBinaryRenderer> _byteRenderers = new()
     {
         { FormatTypes.Jpeg, new JpegRenderer() },
@@ -37,31 +33,60 @@ public class QrCodeFactory : IQrCodeFactory
     //<summary>
     //Generates QR code based on the provided metadata.
     //</summary>
-    public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata)
+    public QrCodeResult GenerateQrCode(IQrCodeMetadata metadata)
     {
-        
-        switch (metadata.Format)
+        switch (metadata)
         {
-            case FormatTypes.Png:
-            case FormatTypes.Jpeg:
-            case FormatTypes.Pdf:    
-        
-                IBinaryRenderer pngRenderer = this._byteRenderers[metadata.Format];
-                QRCodeData qrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-                byte[] pngCodeImage = pngRenderer.Render(qrCodeData);
+            case WiFiQrCodeMetadata wifi:
+                var wifiGenerator = this._generatorFactory.GetGenerator<WiFiQrCodeMetadata>();
                 
-                return new UrlQrCodeResult(pngCodeImage, metadata.Format);
+                QRCodeData generatedWifi = wifiGenerator.GenerateQrCode(wifi);
+                IBinaryRenderer wifiRenderer = this._byteRenderers[wifi.Format];
+                byte[] rendered = wifiRenderer.Render(generatedWifi);
+                
+                return new WiFiQrCodeResult(rendered, wifi.Format);
             
-            case FormatTypes.Svg:
+            case UrlQrCodeMetadata url:
+                var urlGenerator = this._generatorFactory.GetGenerator<UrlQrCodeMetadata>();
+
+                QRCodeData generatedUrl = urlGenerator.GenerateQrCode(url);
+                IBinaryRenderer urlRenderer = this._byteRenderers[url.Format];
+                byte[] renderedUrl = urlRenderer.Render(generatedUrl);
                 
-                ITextRenderer svgRenderer = this._textRenderers[metadata.Format];
-                QRCodeData svgQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-                string svgCodeImage = svgRenderer.Render(svgQrCodeData);
-                
-                return new UrlQrCodeResult(svgCodeImage, metadata.Format);
+                return new UrlQrCodeResult(renderedUrl, url.Format);
             
             default:
-                throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
+                return null;
         }
     }
+    
+// Just in case if anything goes wrong
+    // public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata)
+    // {
+    //
+    //     switch (metadata.Format)
+    //     {
+    //         case FormatTypes.Png:
+    //         case FormatTypes.Jpeg:
+    //         case FormatTypes.Pdf:
+    //
+    //             IBinaryRenderer pngRenderer = this._byteRenderers[metadata.Format];
+    //             QRCodeData qrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
+    //             byte[] pngCodeImage = pngRenderer.Render(qrCodeData);
+    //
+    //             return new UrlQrCodeResult(pngCodeImage, metadata.Format);
+    //
+    //         case FormatTypes.Svg:
+    //
+    //             ITextRenderer svgRenderer = this._textRenderers[metadata.Format];
+    //             QRCodeData svgQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
+    //             string svgCodeImage = svgRenderer.Render(svgQrCodeData);
+    //
+    //             return new UrlQrCodeResult(svgCodeImage, metadata.Format);
+    //
+    //         default:
+    //             throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
+    //     }
+    // }
+
 }

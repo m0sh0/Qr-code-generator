@@ -1,12 +1,11 @@
-using System.Drawing;
 using QrCodeGeneratorProject.Core.Interfaces;
+using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.IO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
-using QrCodeGeneratorProject.Renderers.Interfaces;
-using QrCodeGeneratorProject.Renderers.Models;
+
 using QRCoder;
 
 namespace QrCodeGeneratorProject.Core;
@@ -31,26 +30,21 @@ public class Engine : IEngine
             FormatTypes.Png,
             QRCodeGenerator.ECCLevel.Q
         );
-        
-        UrlQrCodeResult result = this._factory.GenerateQrCode(metadata);
-        
-        this._writer.WriteBytes(result.ByteData, $"../../../Figma.{metadata.Format.ToString().ToLower()}");
-        
-        
-        // PayloadGenerator.WiFi generator = new PayloadGenerator.WiFi("My-WiFis-Name", "s3cr3t-p4ssw0rd", PayloadGenerator.WiFi.Authentication.WPA);
-        // string payload = generator.ToString();
-        //
-        // QRCodeGenerator qrGenerator = new QRCodeGenerator();
-        // QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
-        // IBinaryRenderer renderer = new PngRenderer();
-        // byte[] qrCodeImage = renderer.Render(qrCodeData);
-        // this._writer.WriteBytes(qrCodeImage, "../../../wifi.png");
-        // QRCode qrCode = new QRCode(qrCodeData);
-        // Bitmap qrCodeAsBitmap = qrCode.GetGraphic(20);
-        
-       // WiFiQrCodeMetadata m = new("Wifi-name", "password", FormatTypes.Png, AuthenticationTypes.Wpa2);
 
 
+        WiFiQrCodeMetadata metadata2 = new
+            (
+                ssid: "Figma",
+                password: "asdadsda",
+                FormatTypes.Png,
+                AuthenticationTypes.Wep
+            );
+        
+        QrCodeFactory acr = new QrCodeFactory();
+
+        QrCodeResult res = acr.GenerateQrCode(metadata);
+
+        this._writer.WriteBytes(res.ByteData, $"../../../Figma.{res.Format.ToString().ToLower()}");
 
     }
 }
