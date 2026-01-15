@@ -27,7 +27,7 @@ public class Engine : IEngine
         (
             text: "https://www.figma.com/files/team/1593625816809015669/recents-and-sharing?fuid=1593625814914515783",
             type: QrCodeTypes.Url,
-            FormatTypes.Png,
+            FormatTypes.Svg,
             QRCodeGenerator.ECCLevel.Q
         );
 
@@ -36,15 +36,12 @@ public class Engine : IEngine
             (
                 ssid: "Figma",
                 password: "asdadsda",
-                FormatTypes.Png,
+                FormatTypes.Svg,
                 AuthenticationTypes.Wep
             );
         
-        QrCodeFactory acr = new QrCodeFactory();
 
-        QrCodeResult res = acr.GenerateQrCode(metadata);
-
-        this._writer.WriteBytes(res.ByteData, $"../../../Figma.{res.Format.ToString().ToLower()}");
-
+        QrCodeResult qrCode = this._factory.GenerateQrCode(metadata);
+        this._writer.WriteString(qrCode.StringData, $"../../../Output.{metadata.Format.ToString().ToLower()}");
     }
 }

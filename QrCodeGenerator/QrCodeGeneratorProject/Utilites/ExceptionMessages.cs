@@ -14,4 +14,5 @@ public class ExceptionMessages
     public const string SsidIsNullOrEmpty = "SSID is null or empty.";
     public const string PasswordNullOrEmpty = "Password is null or empty.";
     public const string NoGeneratorFound = "No generator registered for type {0}";
+    public const string UnsupportedMetadataType = "Unsupported metadata type.";
 }

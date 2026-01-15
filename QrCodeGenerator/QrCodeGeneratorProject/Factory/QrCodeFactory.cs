@@ -41,23 +41,46 @@ public class QrCodeFactory : IQrCodeFactory
                 var wifiGenerator = this._generatorFactory.GetGenerator<WiFiQrCodeMetadata>();
                 
                 QRCodeData generatedWifi = wifiGenerator.GenerateQrCode(wifi);
-                IBinaryRenderer wifiRenderer = this._byteRenderers[wifi.Format];
-                byte[] rendered = wifiRenderer.Render(generatedWifi);
                 
-                return new WiFiQrCodeResult(rendered, wifi.Format);
+                if (this._byteRenderers.ContainsKey(wifi.Format))
+                {
+                    IBinaryRenderer wifiRenderer = this._byteRenderers[wifi.Format];
+                    byte[] rendered = wifiRenderer.Render(generatedWifi);
+
+                    return new WiFiQrCodeResult(rendered, wifi.Format);
+                }
+                if (this._textRenderers.ContainsKey(wifi.Format))
+                {
+                    ITextRenderer wifiRenderer = this._textRenderers[wifi.Format];
+                    string rendered = wifiRenderer.Render(generatedWifi);
+                    
+                    return new WiFiQrCodeResult(rendered, wifi.Format);
+                }
+                break;
             
             case UrlQrCodeMetadata url:
                 var urlGenerator = this._generatorFactory.GetGenerator<UrlQrCodeMetadata>();
-
                 QRCodeData generatedUrl = urlGenerator.GenerateQrCode(url);
-                IBinaryRenderer urlRenderer = this._byteRenderers[url.Format];
-                byte[] renderedUrl = urlRenderer.Render(generatedUrl);
-                
-                return new UrlQrCodeResult(renderedUrl, url.Format);
-            
-            default:
-                return null;
+
+                if (this._byteRenderers.ContainsKey(url.Format))
+                {
+                    IBinaryRenderer urlRenderer = this._byteRenderers[url.Format];
+                    byte[] renderedUrl = urlRenderer.Render(generatedUrl);
+                    
+                    return new UrlQrCodeResult(renderedUrl, url.Format);
+                }
+
+                if (this._textRenderers.ContainsKey(url.Format))
+                {
+                    ITextRenderer urlRenderer = this._textRenderers[url.Format];
+                    string renderedUrl = urlRenderer.Render(generatedUrl);
+                    
+                    return new UrlQrCodeResult(renderedUrl, url.Format);
+                }
+
+                break;
         }
+        throw new NotSupportedException(ExceptionMessages.UnsupportedMetadataType);
     }
     
 // Just in case if anything goes wrong
