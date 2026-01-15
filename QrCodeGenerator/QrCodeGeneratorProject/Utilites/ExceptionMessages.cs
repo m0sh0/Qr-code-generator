@@ -10,4 +10,7 @@ public class ExceptionMessages
     public const string InvalidQrCodeType = "Invalid QRCode type.";
     public const string InvalidEccLevel = "Invalid ECC level.";
     public const string InvalidFormat = "Invalid format.";
+    public const string InvalidAuthentication = "Invalid authentication.";
+    public const string SsidIsNullOrEmpty = "SSID is null or empty.";
+    public const string PasswordNullOrEmpty = "Password is null or empty.";
 }

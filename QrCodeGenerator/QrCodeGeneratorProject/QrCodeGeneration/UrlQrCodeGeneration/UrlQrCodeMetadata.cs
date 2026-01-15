@@ -1,14 +1,14 @@
-﻿using QrCodeGeneratorProject.DTO;
+﻿using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.Utilites;
 using QRCoder;
 
-namespace QrCodeGeneratorProject.QrCodeGeneration;
+namespace QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 
 //<summary>
-// A class that holds metadata for QR codes.
+// A class that holds metadata for URL QR codes.
 //</summary>
 
-public class UrlQrCodeMetadata
+public class UrlQrCodeMetadata : IQrCodeMetadata
 {
     
     private string _text;
@@ -29,7 +29,7 @@ public class UrlQrCodeMetadata
         get => this._type;
         private set
         {
-            if (value != QrCodeTypes.Url && value != QrCodeTypes.Wifi)
+            if (value != QrCodeTypes.Url)
             {
                 throw new ArgumentException(ExceptionMessages.InvalidQrCodeType);
             }
@@ -56,7 +56,7 @@ public class UrlQrCodeMetadata
         get => this._text;
         private set
         {
-            if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(value) || value == string.Empty)
             {
                 throw new ArgumentException(ExceptionMessages.TextIsNullOrEmpty);
             }

@@ -1,9 +1,10 @@
 ﻿using QrCodeGeneratorProject.QrCodeGeneration;
+using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QRCoder;
 
 namespace QrCodeGeneratorProject.DTO.Interfaces;
 
-public interface IQrCodeGenerator
+public interface IQrCodeGenerator<TQrCodeMetadata>
 {
-    public QRCodeData GenerateQrCode(UrlQrCodeMetadata urlQrCodeMetadata);
+    public QRCodeData GenerateQrCode(TQrCodeMetadata urlQrCodeMetadata);
 }

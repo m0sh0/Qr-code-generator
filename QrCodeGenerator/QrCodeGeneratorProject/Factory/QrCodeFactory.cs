@@ -1,6 +1,8 @@
 using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
+using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
+using QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
 using QrCodeGeneratorProject.Renderers.Interfaces;
 using QrCodeGeneratorProject.Renderers.Models;
 using QrCodeGeneratorProject.Utilites;
@@ -13,8 +15,14 @@ namespace QrCodeGeneratorProject.Factory;
 //</summary>
 public class QrCodeFactory : IQrCodeFactory
 {
-    private readonly IQrCodeGenerator _urlQrCodeGenerator = new UrlQrCodeGenerator();
+    private readonly IQrCodeGenerator<UrlQrCodeMetadata> _urlQrCodeGenerator = new UrlQrCodeGenerator();
+    private readonly IQrCodeGenerator<WiFiQrCodeMetadata> _wiFiQrCodeGenerator = new WiFiQrCodeGenerator();
 
+    private readonly Dictionary<QrCodeTypes, object> _generators = new()
+    {
+        { QrCodeTypes.Url, new UrlQrCodeGenerator() },
+        { QrCodeTypes.Wifi, new WiFiQrCodeGenerator() }
+    };
     private readonly Dictionary<FormatTypes, IBinaryRenderer> _byteRenderers = new()
     {
         { FormatTypes.Jpeg, new JpegRenderer() },
@@ -31,12 +39,13 @@ public class QrCodeFactory : IQrCodeFactory
     //</summary>
     public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata)
     {
+        
         switch (metadata.Format)
         {
             case FormatTypes.Png:
             case FormatTypes.Jpeg:
             case FormatTypes.Pdf:    
-
+        
                 IBinaryRenderer pngRenderer = this._byteRenderers[metadata.Format];
                 QRCodeData qrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
                 byte[] pngCodeImage = pngRenderer.Render(qrCodeData);
