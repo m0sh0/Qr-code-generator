@@ -34,14 +34,14 @@ public class Engine : IEngine
 
         WiFiQrCodeMetadata metadata2 = new
             (
-                ssid: "Figma",
-                password: "asdadsda",
-                FormatTypes.Svg,
-                AuthenticationTypes.Wep
+                ssid: "Ohana",
+                password: "Ohana_123",
+                FormatTypes.Png,
+                AuthenticationTypes.Wpa2
             );
         
 
-        QrCodeResult qrCode = this._factory.GenerateQrCode(metadata);
-        this._writer.WriteString(qrCode.StringData, $"../../../Output.{metadata.Format.ToString().ToLower()}");
+        QrCodeResult qrCode = this._factory.GenerateQrCode(metadata2);
+        this._writer.WriteBytes(qrCode.ByteData, $"../../../Output.{metadata2.Format.ToString().ToLower()}");
     }
 }
