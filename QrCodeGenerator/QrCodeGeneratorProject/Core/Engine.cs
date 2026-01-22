@@ -5,7 +5,6 @@ using QrCodeGeneratorProject.IO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
-
 using QRCoder;
 
 namespace QrCodeGeneratorProject.Core;
@@ -14,34 +13,32 @@ public class Engine : IEngine
 {
     private readonly IWriter _writer;
     private readonly IQrCodeFactory _factory;
-    
+
     public Engine(IWriter writer, IQrCodeFactory factory)
     {
         this._writer = writer;
         this._factory = factory;
     }
-    
-    public void Run() {
 
-        UrlQrCodeMetadata metadata = new
+    public void Run()
+    {
+        WiFiQrCodeMetadata metadata = new
         (
-            text: "https://www.figma.com/files/team/1593625816809015669/recents-and-sharing?fuid=1593625814914515783",
-            type: QrCodeTypes.Url,
-            FormatTypes.Svg,
+            "Ohana",
+            "Ohana_123",
+            FormatTypes.Pdf,
+            AuthenticationTypes.Wpa2
+        );
+
+        UrlQrCodeMetadata metadat2 = new
+        (
+            "https://www.google.com",
+            FormatTypes.Png,
             QRCodeGenerator.ECCLevel.Q
         );
 
+        QrCodeResult result = this._factory.GenerateQrCode(metadat2);
 
-        WiFiQrCodeMetadata metadata2 = new
-            (
-                ssid: "Ohana",
-                password: "Ohana_123",
-                FormatTypes.Png,
-                AuthenticationTypes.Wpa2
-            );
-        
-
-        QrCodeResult qrCode = this._factory.GenerateQrCode(metadata2);
-        this._writer.WriteBytes(qrCode.ByteData, $"../../../Output.{metadata2.Format.ToString().ToLower()}");
+        this._writer.WriteBytes(result.ByteData, $"../../../Google.{metadat2.Format.ToString().ToLowerInvariant()}");
     }
 }
