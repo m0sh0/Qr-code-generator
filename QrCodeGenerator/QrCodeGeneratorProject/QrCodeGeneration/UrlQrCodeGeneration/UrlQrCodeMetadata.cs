@@ -12,30 +12,15 @@ public class UrlQrCodeMetadata : IQrCodeMetadata
 {
     
     private string _text;
-    //private QrCodeTypes _type;
     private FormatTypes _format;
     private QRCodeGenerator.ECCLevel _eccLevel;
 
     public UrlQrCodeMetadata(string text, FormatTypes format, QRCodeGenerator.ECCLevel eccLevel)
     {
         this.Text = text;
-        // this.Type = type;
         this.Format = format;
         this.EccLevel = eccLevel;
     }
-
-    // public QrCodeTypes Type
-    // {
-    //     get => this._type;
-    //     private set
-    //     {
-    //         if (value != QrCodeTypes.Url)
-    //         {
-    //             throw new ArgumentException(ExceptionMessages.InvalidQrCodeType);
-    //         }
-    //         this._type = value;
-    //     }
-    // }
 
     public FormatTypes Format
     {
