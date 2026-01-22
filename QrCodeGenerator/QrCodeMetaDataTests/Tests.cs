@@ -17,10 +17,9 @@ public class Tests
         const FormatTypes expectedFormat = FormatTypes.Svg;
         const QRCodeGenerator.ECCLevel expectedEccLevel = QRCodeGenerator.ECCLevel.Q;
 
-        var metadata = new UrlQrCodeMetadata(expectedText, expectedType, expectedFormat, expectedEccLevel);
+        var metadata = new UrlQrCodeMetadata(expectedText, expectedFormat, expectedEccLevel);
 
         Assert.That(metadata.Text, Is.EqualTo(expectedText));
-        Assert.That(metadata.Type, Is.EqualTo(expectedType));
         Assert.That(metadata.Format, Is.EqualTo(expectedFormat));
         Assert.That(metadata.EccLevel, Is.EqualTo(expectedEccLevel));
     }
@@ -29,7 +28,7 @@ public class Tests
     public void ConstructorShouldThrowWhenTextIsEmpty()
     {
         Assert.That(
-            () => new UrlQrCodeMetadata(string.Empty, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
+            () => new UrlQrCodeMetadata(string.Empty,  FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
             Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.TextIsNullOrEmpty));
     }
 
@@ -37,7 +36,7 @@ public class Tests
     public void ConstructorShouldThrowWhenTextIsNull()
     {
         Assert.That(
-            () => new UrlQrCodeMetadata(null, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
+            () => new UrlQrCodeMetadata(null, FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
             Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.TextIsNullOrEmpty));
     }
 
@@ -45,23 +44,15 @@ public class Tests
     public void ConstructorShouldThrowWhenTextIsWhitespace()
     {
         Assert.That(
-            () => new UrlQrCodeMetadata("   ", QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
+            () => new UrlQrCodeMetadata("   ", FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
             Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.TextIsNullOrEmpty));
     }
-
-    [Test]
-    public void ConstructorShouldThrowWhenTypeIsInvalid()
-    {
-        Assert.That(
-            () => new UrlQrCodeMetadata(DefaultText, (QrCodeTypes)100, FormatTypes.Png, QRCodeGenerator.ECCLevel.L),
-            Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.InvalidQrCodeType));
-    }
-
+    
     [Test]
     public void ConstructorShouldThrowWhenFormatIsInvalid()
     {
         Assert.That(
-            () => new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, (FormatTypes)100, QRCodeGenerator.ECCLevel.L),
+            () => new UrlQrCodeMetadata(DefaultText, (FormatTypes)100, QRCodeGenerator.ECCLevel.L),
             Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.InvalidFormat));
     }
 
@@ -70,52 +61,36 @@ public class Tests
     public void ConstructorShouldThrowWhenEccLevelIsInvalid()
     {
         Assert.That(
-            () => new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Png, (QRCodeGenerator.ECCLevel)100),
+            () => new UrlQrCodeMetadata(DefaultText, FormatTypes.Png, (QRCodeGenerator.ECCLevel)100),
             Throws.ArgumentException.With.Message.EqualTo(ExceptionMessages.InvalidEccLevel));
     }
-
-    [Test]
-    public void ConstructorShouldSucceedWithValidUrlType()
-    {
-        Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.L));
-    }
-
-    [Test]
-    public void ConstructorShouldSucceedWithValidWifiType()
-    {
-        string wifiPayload = "WIFI:T:WPA;S:MyNetwork;P:MyPassword;;";
-        
-        Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(wifiPayload, QrCodeTypes.Wifi, FormatTypes.Png, QRCodeGenerator.ECCLevel.L));
-    }
-
+    
     [Test]
     public void ConstructorShouldSucceedWithSvgFormat()
     {
         Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Svg, QRCodeGenerator.ECCLevel.L));
+            new UrlQrCodeMetadata(DefaultText, FormatTypes.Svg, QRCodeGenerator.ECCLevel.L));
     }
 
     [Test]
     public void ConstructorShouldSucceedWithEccLevelM()
     {
         Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.M));
+            new UrlQrCodeMetadata(DefaultText, FormatTypes.Png, QRCodeGenerator.ECCLevel.M));
     }
 
     [Test]
     public void ConstructorShouldSucceedWithEccLevelQ()
     {
         Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.Q));
+            new UrlQrCodeMetadata(DefaultText, FormatTypes.Png, QRCodeGenerator.ECCLevel.Q));
     }
 
     [Test]
     public void ConstructorShouldSucceedWithEccLevelH()
     {
         Assert.DoesNotThrow(() => 
-            new UrlQrCodeMetadata(DefaultText, QrCodeTypes.Url, FormatTypes.Png, QRCodeGenerator.ECCLevel.H));
+            new UrlQrCodeMetadata(DefaultText, FormatTypes.Png, QRCodeGenerator.ECCLevel.H));
     }
     
 }
