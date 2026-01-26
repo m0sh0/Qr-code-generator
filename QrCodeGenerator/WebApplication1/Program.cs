@@ -2,17 +2,22 @@
 
 using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
+using System.Text.Json.Serialization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(); // Adds support for controllers and opens access to [ApiController] and [Route] attributes
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    }); // Adds support for controllers and opens access to [ApiController] and [Route] attributes
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-WebApplication app = builder.Build(); // Creates and configures app
 builder.Services.AddScoped<IQrCodeFactory, QrCodeFactory>(); // Allows me to inject QrCodeFactory into my controllers
+WebApplication app = builder.Build(); // Creates and configures app
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) // If I'm in development mode, it creates a swagger UI for API testing
