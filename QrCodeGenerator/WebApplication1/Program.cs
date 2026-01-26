@@ -19,7 +19,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IQrCodeFactory, QrCodeFactory>(); // Allows me to inject QrCodeFactory into my controllers
 WebApplication app = builder.Build(); // Creates and configures app
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) // If I'm in development mode, it creates a swagger UI for API testing
 {
     app.UseSwagger();
