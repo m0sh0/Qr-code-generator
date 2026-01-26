@@ -1,5 +1,4 @@
 using QrCodeGeneratorProject.Core.Interfaces;
-using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.IO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
@@ -32,7 +31,7 @@ public class Engine : IEngine
 
         UrlQrCodeMetadata metadat2 = new
         (
-            "https://www.google.com",
+            "https://www.aboutyou.bg/p/jack-jones/pantalon-chino-jpstollie-dylan-29929027",
             FormatTypes.Png,
             QRCodeGenerator.ECCLevel.Q
         );
