@@ -83,34 +83,4 @@ public class QrCodeFactory : IQrCodeFactory
         }
         throw new NotSupportedException(ExceptionMessages.UnsupportedMetadataType);
     }
-    
-// Just in case if anything goes wrong
-    // public UrlQrCodeResult GenerateQrCode(UrlQrCodeMetadata metadata)
-    // {
-    //
-    //     switch (metadata.Format)
-    //     {
-    //         case FormatTypes.Png:
-    //         case FormatTypes.Jpeg:
-    //         case FormatTypes.Pdf:
-    //
-    //             IBinaryRenderer pngRenderer = this._byteRenderers[metadata.Format];
-    //             QRCodeData qrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-    //             byte[] pngCodeImage = pngRenderer.Render(qrCodeData);
-    //
-    //             return new UrlQrCodeResult(pngCodeImage, metadata.Format);
-    //
-    //         case FormatTypes.Svg:
-    //
-    //             ITextRenderer svgRenderer = this._textRenderers[metadata.Format];
-    //             QRCodeData svgQrCodeData = this._urlQrCodeGenerator.GenerateQrCode(metadata);
-    //             string svgCodeImage = svgRenderer.Render(svgQrCodeData);
-    //
-    //             return new UrlQrCodeResult(svgCodeImage, metadata.Format);
-    //
-    //         default:
-    //             throw new NotSupportedException(ExceptionMessages.QrCodeFormatNotSupported);
-    //     }
-    // }
-
 }
