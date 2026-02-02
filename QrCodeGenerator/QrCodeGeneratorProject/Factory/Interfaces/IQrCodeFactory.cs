@@ -1,5 +1,6 @@
 using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
+using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
 
 namespace QrCodeGeneratorProject.Factory.Interfaces;
 

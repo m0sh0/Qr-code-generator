@@ -1,11 +1,10 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
-using QrCodeGeneratorProject.DTO.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 
 namespace WebApplication1.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class UrlQrCodeController : ControllerBase
@@ -21,8 +20,43 @@ public class UrlQrCodeController : ControllerBase
     public IActionResult GenerateQr([FromBody] UrlQrCodeMetadata metadata)
     {
         QrCodeResult result = this._qrCodeFactory.GenerateQrCode(metadata);
-    
-        return File(result.ByteData, "application/octet-stream", $"Test.{metadata.Format.ToString()}");
+        string contentType = GetContentType(metadata.Format);
+        string fileName = GetFileName(metadata.Format);
+        
+        return GetAppropriateResult(result, contentType, fileName);
     }
-   
+
+    private IActionResult GetAppropriateResult(QrCodeResult result, string contentType, string fileName)
+    {
+        if (result.IsBinary)
+        {
+            return File
+                (
+                    result.ByteData, 
+                    contentType, 
+                    fileName
+                );
+        }
+        
+        return File
+        (
+            System.Text.Encoding.UTF8.GetBytes(result.StringData),
+            contentType,
+            fileName
+        );
+    }
+    private static string GetContentType(FormatTypes format)
+    {
+        switch (format)
+        {
+            case FormatTypes.Png: return "image/png";
+            case FormatTypes.Jpeg: return "image/jpeg";
+            case FormatTypes.Svg: return "image/svg+xml";
+            case FormatTypes.Pdf: return "application/pdf";
+            default: return "application/octet-stream";
+        }
+    }
+    
+    private static string GetFileName(FormatTypes format)
+        => $"QrCode.{format.ToString().ToLower().ToLowerInvariant()}";
 }

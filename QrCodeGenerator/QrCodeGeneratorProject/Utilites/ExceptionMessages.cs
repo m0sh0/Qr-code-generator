@@ -15,4 +15,6 @@ public class ExceptionMessages
     public const string PasswordNullOrEmpty = "Password is null or empty.";
     public const string NoGeneratorFound = "No generator registered for type {0}";
     public const string UnsupportedMetadataType = "Unsupported metadata type.";
+    public const string MetadataHasNoByteData = "Metadata has string data, not byte data.";
+    public const string MetadataHasNoStringData = "Metadata has byte data, not string data.";
 }

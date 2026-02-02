@@ -20,6 +20,5 @@ class Program
         IEngine engine = new Engine(writer,factory);
         engine.Run();
         
-
     }
 }

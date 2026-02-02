@@ -4,13 +4,14 @@ namespace QrCodeGeneratorProject.QrCodeGeneration;
 
 public abstract class QrCodeResult
 {
-    private byte[] _byteData;
-    private string _stringData;
+    private byte[]? _byteData;
+    private string? _stringData;
     
     protected QrCodeResult(byte[] byteData, FormatTypes format)
     {
         this.ByteData = byteData;
         this.Format = format;
+        this.IsBinary = true;
     }
     
     protected QrCodeResult(string stringData, FormatTypes format)
@@ -18,13 +19,15 @@ public abstract class QrCodeResult
         this.StringData = stringData;
         this.Format = format;
     }
+
+    public bool IsBinary { get; }
     
     public FormatTypes Format { get; }
     
     
     public byte[] ByteData
     {
-        get => this._byteData;
+        get => this._byteData ?? throw new ArgumentException(ExceptionMessages.MetadataHasNoByteData);
         private set
         {
             if (value.Length == 0)
@@ -37,7 +40,7 @@ public abstract class QrCodeResult
 
     public string StringData
     {
-        get => this._stringData;
+        get => this._stringData ?? throw new ArgumentException(ExceptionMessages.MetadataHasNoStringData);
         private set
         {
             if (string.IsNullOrEmpty(value))
