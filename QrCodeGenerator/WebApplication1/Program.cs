@@ -1,5 +1,4 @@
 // Creates new configuration and DI container
-
 using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using System.Text.Json.Serialization;
