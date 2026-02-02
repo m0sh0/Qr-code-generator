@@ -27,7 +27,7 @@ public abstract class QrCodeResult
     
     public byte[] ByteData
     {
-        get => this._byteData ?? throw new ArgumentException();
+        get => this._byteData ?? throw new ArgumentException(ExceptionMessages.MetadataHasNoByteData);
         private set
         {
             if (value.Length == 0)
@@ -40,7 +40,7 @@ public abstract class QrCodeResult
 
     public string StringData
     {
-        get => this._stringData ?? throw new ArgumentException();
+        get => this._stringData ?? throw new ArgumentException(ExceptionMessages.MetadataHasNoStringData);
         private set
         {
             if (string.IsNullOrEmpty(value))

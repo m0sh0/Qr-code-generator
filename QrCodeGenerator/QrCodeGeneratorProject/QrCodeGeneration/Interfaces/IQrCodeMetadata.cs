@@ -1,3 +1,6 @@
-﻿namespace QrCodeGeneratorProject.DTO.Interfaces;
+﻿namespace QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
 
-public interface IQrCodeMetadata { }
+public interface IQrCodeMetadata
+{
+    public FormatTypes Format { get; }
+}

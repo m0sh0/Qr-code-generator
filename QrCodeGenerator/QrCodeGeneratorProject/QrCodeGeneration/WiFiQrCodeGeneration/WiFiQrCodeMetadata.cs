@@ -1,4 +1,5 @@
 ﻿using QrCodeGeneratorProject.DTO.Interfaces;
+using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
 using QrCodeGeneratorProject.Utilites;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;

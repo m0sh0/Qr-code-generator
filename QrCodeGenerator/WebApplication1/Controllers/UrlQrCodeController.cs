@@ -4,6 +4,7 @@ using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 
 namespace WebApplication1.Controllers;
+
 [ApiController]
 [Route("api/[controller]")]
 public class UrlQrCodeController : ControllerBase
