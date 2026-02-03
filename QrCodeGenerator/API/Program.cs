@@ -2,6 +2,8 @@
 using QrCodeGeneratorProject.Factory;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using System.Text.Json.Serialization;
+using WebApplication1.Services;
+using WebApplication1.Services.Interfaces;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IQrCodeFactory, QrCodeFactory>(); // Allows me to inject QrCodeFactory into my controllers
+builder.Services.AddScoped<IQrCodeResponseService, QrCodeResponseService>();
+
 WebApplication app = builder.Build(); // Creates and configures app
 
 if (app.Environment.IsDevelopment()) // If I'm in development mode, it creates a swagger UI for API testing

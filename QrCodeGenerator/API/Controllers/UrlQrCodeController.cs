@@ -2,6 +2,7 @@
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
+using WebApplication1.Services.Interfaces;
 
 namespace WebApplication1.Controllers;
 
@@ -10,53 +11,18 @@ namespace WebApplication1.Controllers;
 public class UrlQrCodeController : ControllerBase
 {
     private readonly IQrCodeFactory _qrCodeFactory;
+    private readonly IQrCodeResponseService _repsonseService;
 
-    public UrlQrCodeController(IQrCodeFactory qrCodeFactory)
+    public UrlQrCodeController(IQrCodeFactory qrCodeFactory, IQrCodeResponseService responseService)
     {
         this._qrCodeFactory = qrCodeFactory;
+        this._repsonseService = responseService;
     }
 
     [HttpPost("generate")]
     public IActionResult GenerateQr([FromBody] UrlQrCodeMetadata metadata)
     {
         QrCodeResult result = this._qrCodeFactory.GenerateQrCode(metadata);
-        string contentType = GetContentType(metadata.Format);
-        string fileName = GetFileName(metadata.Format);
-        
-        return GetAppropriateResult(result, contentType, fileName);
+        return this._repsonseService.GenerateQrCodeResponse(result, metadata.Format);
     }
-
-    private IActionResult GetAppropriateResult(QrCodeResult result, string contentType, string fileName)
-    {
-        if (result.IsBinary)
-        {
-            return File
-                (
-                    result.ByteData, 
-                    contentType, 
-                    fileName
-                );
-        }
-        
-        return File
-        (
-            System.Text.Encoding.UTF8.GetBytes(result.StringData),
-            contentType,
-            fileName
-        );
-    }
-    private static string GetContentType(FormatTypes format)
-    {
-        switch (format)
-        {
-            case FormatTypes.Png: return "image/png";
-            case FormatTypes.Jpeg: return "image/jpeg";
-            case FormatTypes.Svg: return "image/svg+xml";
-            case FormatTypes.Pdf: return "application/pdf";
-            default: return "application/octet-stream";
-        }
-    }
-    
-    private static string GetFileName(FormatTypes format)
-        => $"QrCode.{format.ToString().ToLower().ToLowerInvariant()}";
 }
