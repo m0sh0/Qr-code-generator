@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{42F1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrCodeMetadataTests.Wifi", "QrCodeMetadataTests.Wifi\QrCodeMetadataTests.Wifi.csproj", "{9A42191E-04EF-46A3-B5A4-44AC42E58C07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{7B99C233-4FCE-4A1B-9054-DB8F667DB1DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{7B99C233-4FCE-4A1B-9054-DB8F667DB1DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
