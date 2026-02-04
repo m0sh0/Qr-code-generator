@@ -5,7 +5,6 @@ using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QRCoder;
 using WebApplication1.Controllers;
-using WebApplication1.Services;
 using WebApplication1.Services.Interfaces;
 
 namespace UrlQrCodeControllerTests;
