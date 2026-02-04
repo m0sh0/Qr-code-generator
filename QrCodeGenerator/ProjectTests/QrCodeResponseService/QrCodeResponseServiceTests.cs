@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
-using WebApplication1.Services;
 
-namespace UrlQrCodeMetadataTests.Url;
+namespace UrlQrCodeMetadataTests.Url.QrCodeResponseService;
 
 /// <summary>
 /// Tests for QrCodeResponseService
@@ -12,12 +11,12 @@ namespace UrlQrCodeMetadataTests.Url;
 [TestFixture]
 public class QrCodeResponseServiceTests
 {
-    private QrCodeResponseService _service;
+    private WebApplication1.Services.QrCodeResponseService _service;
     
     [SetUp]
     public void Setup()
     {
-        this._service = new QrCodeResponseService();
+        this._service = new WebApplication1.Services.QrCodeResponseService();
     }
 
     #region  PNG Format Tests
