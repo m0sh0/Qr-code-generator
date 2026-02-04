@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrCodeGeneratorProject", "QrCodeGeneratorProject\QrCodeGeneratorProject.csproj", "{AE376EE5-3C4D-4525-8246-986277F65A47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QrCodeMetadataTests.Url", "QrCodeMetadataTests.Url\QrCodeMetadataTests.Url.csproj", "{1737A3B5-1E99-4F0A-B1C8-FA8E2E984271}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTests", "ProjectTests\ProjectTests.csproj", "{1737A3B5-1E99-4F0A-B1C8-FA8E2E984271}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{29F08998-1D2F-4E77-AFA2-8825427695E4}"
 EndProject
