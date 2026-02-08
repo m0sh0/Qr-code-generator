@@ -1,7 +1,10 @@
-﻿using QrCodeGeneratorProject.Utilites;
+﻿using QrCodeGeneratorProject.Utilities;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration;
 
+/// <summary>
+/// A class that holds the result of a QR code generation operation.
+/// </summary>
 public abstract class QrCodeResult
 {
     private byte[]? _byteData;

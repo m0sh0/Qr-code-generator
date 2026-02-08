@@ -2,8 +2,12 @@
 using QRCoder;
 using Aspose.Words;
 
+
 namespace QrCodeGeneratorProject.Renderers.Models;
 
+/// <summary>
+/// A class that renders QR codes as JPEG images.
+/// </summary>
 public class JpegRenderer : IBinaryRenderer
 {
     public byte[] Render(QRCodeData qrCodeData)

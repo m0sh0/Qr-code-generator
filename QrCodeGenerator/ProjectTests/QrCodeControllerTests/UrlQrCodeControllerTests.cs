@@ -212,5 +212,47 @@ public class UrlQrCodeControllerTests
             () => this._controller.GenerateQr(metadata)
         );
     }
-    }
     #endregion
+    #region Multiple Calls Tests
+
+    /// <summary>
+    /// Test that each call to the controller results in calls to dependencies
+    /// </summary>
+    [Test]
+    public void GenerateQr_CalledTwice_ShouldCallDependenciesTwice()
+    {
+        UrlQrCodeMetadata metadata1 = new
+        (
+            "https://example.com",
+            FormatTypes.Png,
+            QRCodeGenerator.ECCLevel.M
+        );
+        UrlQrCodeMetadata metadata2 = new
+        (
+            "https://www.google.com",
+            FormatTypes.Pdf,
+            QRCodeGenerator.ECCLevel.Q
+        );
+
+        this._mockFactory.SetupSequence(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()))
+            .Returns(new UrlQrCodeResult(new byte[] { 1 }, FormatTypes.Png));
+
+        this._mockResponseService.Setup(s =>
+            s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(), It.IsAny<FormatTypes>()))
+            .Returns(new FileContentResult(new byte[] { 1 }, "image/png"));
+        
+        this._controller.GenerateQr(metadata1);
+        this._controller.GenerateQr(metadata2);
+        
+        this._mockFactory.Verify
+            (f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()),
+                Times.Exactly(2));
+        this._mockResponseService.Verify
+            (s => s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(),It.IsAny<FormatTypes>()), 
+                Times.Exactly(2));
+    }
+
+    #endregion
+}
+
+

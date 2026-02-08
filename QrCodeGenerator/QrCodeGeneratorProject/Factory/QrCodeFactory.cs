@@ -6,14 +6,14 @@ using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
 using QrCodeGeneratorProject.Renderers.Interfaces;
 using QrCodeGeneratorProject.Renderers.Models;
-using QrCodeGeneratorProject.Utilites;
+using QrCodeGeneratorProject.Utilities;
 using QRCoder;
 
 namespace QrCodeGeneratorProject.Factory;
 
-//<summary>
-// A class that generates QR codes based on the provided metadata.
-//</summary>
+///<summary>
+/// A class that generates QR codes based on the provided metadata.
+///</summary>
 public class QrCodeFactory : IQrCodeFactory
 {
     private readonly IQrCodeGenerator<UrlQrCodeMetadata> _urlQrCodeGenerator = new UrlQrCodeGenerator();
@@ -31,9 +31,9 @@ public class QrCodeFactory : IQrCodeFactory
         { FormatTypes.Svg, new SvgRenderer() }
     };
     
-    //<summary>
-    //Generates QR code based on the provided metadata.
-    //</summary>
+    ///<summary>
+    ///Generates QR code based on the provided metadata.
+    ///</summary>
     public QrCodeResult GenerateQrCode(IQrCodeMetadata metadata)
     {
         switch (metadata)

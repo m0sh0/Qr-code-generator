@@ -3,14 +3,14 @@ using QRCoder;
 
 namespace QrCodeGeneratorProject.Renderers.Models;
 
-//<summary>
-// A class that renders QR codes as PNG images.
-//</summary>
+///<summary>
+/// A class that renders QR codes as PNG images.
+///</summary>
 public class PngRenderer : IBinaryRenderer
 {
-    //<summary>
-    //Renders QR code as a PNG image.
-    //</summary>
+    ///<summary>
+    ///Renders QR code as a PNG image.
+    ///</summary>
     public byte[] Render(QRCodeData qrCodeData)
     {
         using PngByteQRCode pngRenderer = new(qrCodeData);

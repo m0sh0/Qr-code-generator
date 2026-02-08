@@ -1,9 +1,12 @@
 ﻿using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
-using QrCodeGeneratorProject.Utilites;
+using QrCodeGeneratorProject.Utilities;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
 
+/// <summary>
+/// A class that holds metadata for Wi-Fi QR codes.
+/// </summary>
 public class WiFiQrCodeMetadata : IQrCodeMetadata
 {
     private string _ssid;

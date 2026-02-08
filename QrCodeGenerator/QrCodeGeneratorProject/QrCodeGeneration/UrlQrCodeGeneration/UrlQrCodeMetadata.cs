@@ -1,13 +1,13 @@
 ﻿using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
-using QrCodeGeneratorProject.Utilites;
+using QrCodeGeneratorProject.Utilities;
 using QRCoder;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 
-//<summary>
-// A class that holds metadata for URL QR codes.
-//</summary>
+///<summary>
+/// A class that holds metadata for URL QR codes.
+///</summary>
 
 public class UrlQrCodeMetadata : IQrCodeMetadata
 {

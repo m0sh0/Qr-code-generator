@@ -2,9 +2,9 @@
 using QRCoder;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
-//<summary>
-// A class that generates QR codes for URLs.
-//</summary>
+///<summary>
+/// A class that generates QR codes for URLs.
+///</summary>
 public class UrlQrCodeGenerator : IQrCodeGenerator<UrlQrCodeMetadata>
 {
     public QRCodeData GenerateQrCode(UrlQrCodeMetadata urlQrCodeMetadata)

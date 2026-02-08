@@ -3,7 +3,7 @@ using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration.UrlQrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
-using QrCodeGeneratorProject.Utilites;
+using QrCodeGeneratorProject.Utilities;
 
 namespace QrCodeGeneratorProject.Factory;
 

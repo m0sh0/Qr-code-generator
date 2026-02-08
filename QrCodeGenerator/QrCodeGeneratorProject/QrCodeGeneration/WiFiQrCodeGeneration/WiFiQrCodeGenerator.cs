@@ -3,7 +3,9 @@
 using QRCoder;
 
 namespace QrCodeGeneratorProject.QrCodeGeneration.WiFiQrCodeGeneration;
-
+/// <summary>
+/// A class that generates QR codes for Wi-Fi networks.
+/// </summary>
 public class WiFiQrCodeGenerator : IQrCodeGenerator<WiFiQrCodeMetadata>
 {
 
