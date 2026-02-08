@@ -35,7 +35,7 @@ public class Engine : IEngine
             FormatTypes.Png,
             QRCodeGenerator.ECCLevel.Q
         );
-
+        
         QrCodeResult result = this._factory.GenerateQrCode(metadat2);
 
         this._writer.WriteBytes(result.ByteData, $"../../../Google.{metadat2.Format.ToString().ToLowerInvariant()}");

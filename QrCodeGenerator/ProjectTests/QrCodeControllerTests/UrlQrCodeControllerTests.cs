@@ -101,7 +101,7 @@ public class UrlQrCodeControllerTests
     #endregion
 
     #region Order Of Operations Tests
-
+    
     [Test]
     public void GenerateQr_ShouldCallFactoryBeforeService()
     {
@@ -126,5 +126,91 @@ public class UrlQrCodeControllerTests
         this._mockFactory.Verify(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()), Times.Once);
         this._mockResponseService.Verify(s => s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(), It.IsAny<FormatTypes>()), Times.Once);
     }
+    
     #endregion
-}
+    
+    #region Data Flow Tests
+
+    [Test]
+    public void GenerateQr_ShouldPassFactoryOutputToService()
+    {
+        UrlQrCodeMetadata metadata = new(
+            "https://example.com",
+            FormatTypes.Png,
+            QRCodeGenerator.ECCLevel.M
+        );
+
+        byte[] specificBytes = new byte[] { 99, 88, 77, 66 };
+        UrlQrCodeResult specificResult = new(specificBytes, FormatTypes.Png);
+        
+        this._mockFactory
+            .Setup(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()))
+            .Returns(specificResult);
+        
+        this._mockResponseService
+            .Setup(s => s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(), It.IsAny<FormatTypes>()))
+            .Returns(new FileContentResult(new byte[] { 1 }, "image/png"));
+        
+        this._controller.GenerateQr(metadata);
+        
+        this._mockResponseService
+            .Verify(s => s.GenerateQrCodeResponse(
+                It.Is<QrCodeResult>(r => r == specificResult),FormatTypes.Png),
+                Times.Once);
+
+    }
+    #endregion
+    
+    #region Error Propagation Tests
+
+    /// <summary>
+    /// Test that exceptions from the factory are propagated
+    /// </summary>
+    [Test]
+    public void GenerateQr_FactoryThrows_ShouldPropagateException()
+    {
+        UrlQrCodeMetadata metadata = new(
+            "https://example.com",
+            FormatTypes.Png,
+            QRCodeGenerator.ECCLevel.M
+        );
+
+        this._mockFactory
+            .Setup(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()))
+            .Throws(new ArgumentException("Factory threw exception"));
+
+        Assert.Throws<ArgumentException>
+        (() => this._controller.GenerateQr(metadata)
+        );
+
+        this._mockResponseService.Verify(
+            s => s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(), It.IsAny<FormatTypes>()),
+            Times.Never
+        );
+    }
+    
+    /// <summary>
+    /// Test that exceptions from service are propagated
+    /// </summary>
+    [Test] public void GenerateQr_ServiceThrows_ShouldPropagateException()
+    {
+        UrlQrCodeMetadata metadata = new(
+            "https://example.com",
+            FormatTypes.Png,
+            QRCodeGenerator.ECCLevel.M );
+        
+        this._mockFactory
+            .Setup(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()))
+            .Returns(new UrlQrCodeResult(new byte[] { 1 }, FormatTypes.Png));
+        
+        this._mockResponseService
+            .Setup(s => s.GenerateQrCodeResponse(It.IsAny<QrCodeResult>(), It.IsAny<FormatTypes>()))
+            .Throws(new ArgumentException("Service threw exception"));
+        
+        Assert.Throws<ArgumentException>
+        (
+            () => this._controller.GenerateQr(metadata)
+        );
+    }
+    }
+    #endregion
