@@ -27,14 +27,14 @@ public class QrCodeResponseService : IQrCodeResponseService
     
     private static string GetContentType(FormatTypes format)
     {
-        switch (format)
+        return format switch
         {
-            case FormatTypes.Png: return "image/png";
-            case FormatTypes.Jpeg: return "image/jpeg";
-            case FormatTypes.Svg: return "image/svg+xml";
-            case FormatTypes.Pdf: return "application/pdf";
-            default: return "application/octet-stream";
-        }
+            FormatTypes.Png => "image/png",
+            FormatTypes.Jpeg => "image/jpeg",
+            FormatTypes.Svg => "image/svg+xml",
+            FormatTypes.Pdf => "application/pdf",
+            _ => "application/octet-stream"
+        };
     }
     
     private static string GetFileName(FormatTypes format)

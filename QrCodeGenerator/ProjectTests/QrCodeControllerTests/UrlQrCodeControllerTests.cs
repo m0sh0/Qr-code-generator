@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using QrCodeGeneratorProject.DTO.Interfaces;
 using QrCodeGeneratorProject.Factory.Interfaces;
 using QrCodeGeneratorProject.QrCodeGeneration;
 using QrCodeGeneratorProject.QrCodeGeneration.Interfaces;
@@ -39,8 +38,8 @@ public class UrlQrCodeControllerTests
         );
 
         UrlQrCodeResult qrCodeResult = new(new byte[] { 10, 20, 30 }, FormatTypes.Png);
-        var expectedResponse = new Microsoft.AspNetCore.Mvc.OkResult();
-
+        OkResult expectedResponse = new();
+    
         this._mockFactory
             .Setup(f => f.GenerateQrCode(It.IsAny<UrlQrCodeMetadata>()))
             .Returns(qrCodeResult);
@@ -49,7 +48,7 @@ public class UrlQrCodeControllerTests
             .Setup(s => s.GenerateQrCodeResponse(qrCodeResult, metadata.Format))
             .Returns(expectedResponse);
 
-        var response = this._controller.GenerateQr(metadata);
+        IActionResult response = this._controller.GenerateQr(metadata);
 
         Assert.That(response, Is.SameAs(expectedResponse));
         this._mockFactory.Verify(
@@ -140,7 +139,7 @@ public class UrlQrCodeControllerTests
             QRCodeGenerator.ECCLevel.M
         );
 
-        byte[] specificBytes = new byte[] { 99, 88, 77, 66 };
+        byte[] specificBytes = { 99, 88, 77, 66 };
         UrlQrCodeResult specificResult = new(specificBytes, FormatTypes.Png);
         
         this._mockFactory
@@ -192,7 +191,8 @@ public class UrlQrCodeControllerTests
     /// <summary>
     /// Test that exceptions from service are propagated
     /// </summary>
-    [Test] public void GenerateQr_ServiceThrows_ShouldPropagateException()
+    [Test]
+    public void GenerateQr_ServiceThrows_ShouldPropagateException()
     {
         UrlQrCodeMetadata metadata = new(
             "https://example.com",

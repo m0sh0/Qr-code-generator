@@ -11,18 +11,18 @@ namespace WebApplication1.Controllers;
 public class WiFiQrCodeController : ControllerBase
 {
     private readonly IQrCodeFactory _qrCodeFactory;
-    private readonly IQrCodeResponseService _repsonseService;
+    private readonly IQrCodeResponseService _responseService;
 
     public WiFiQrCodeController(IQrCodeFactory qrCodeFactory, IQrCodeResponseService responseService)
     {
         this._qrCodeFactory = qrCodeFactory;
-        this._repsonseService = responseService;
+        this._responseService = responseService;
     }
 
     [HttpPost("generate")]
     public IActionResult GenerateQr([FromBody]WiFiQrCodeMetadata metadata)
     {
         QrCodeResult result = this._qrCodeFactory.GenerateQrCode(metadata);
-        return this._repsonseService.GenerateQrCodeResponse(result, metadata.Format);
+        return this._responseService.GenerateQrCodeResponse(result, metadata.Format);
     }
 }
